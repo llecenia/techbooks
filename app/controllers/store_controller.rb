@@ -1,5 +1,8 @@
 class StoreController < ApplicationController
-    before_action :set_product, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authorize
+  include CurrentCart
+  before_action :set_cart
+    #before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @products = Product.all
@@ -22,6 +25,8 @@ class StoreController < ApplicationController
 
   # POST /products
   # POST /products.json
+  
+
   def create
     @product = Product.new(product_params)
 
